@@ -1,19 +1,32 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import classNames from "classnames";
 
-const Size = ({sizes}) => {
+const Size = ({ sizes }) => {
   const [activeSize, setActiveSize] = useState(0);
-
+  const allSizes = [26, 30, 40];
   const sizeChangeHandler = (index) => {
     setActiveSize(index);
-  }
+  };
 
   return (
     <ul>
-      {sizes && sizes.map((size, index) => {
-        return <li key={`${size}_${index}`} className={activeSize === index ? 'active' : ''} onClick={() => {
-          sizeChangeHandler(index);
-        }}>{size} см.</li>
-      })}
+      {sizes &&
+        allSizes.map((size, index) => {
+          return (
+            <li
+              key={`${size}_${index}`}
+              className={classNames({
+                active: activeSize === index,
+                disabled: !sizes.includes(size),
+              })}
+              onClick={() => {
+                sizeChangeHandler(index);
+              }}
+            >
+              {size} см.
+            </li>
+          );
+        })}
     </ul>
   );
 };
