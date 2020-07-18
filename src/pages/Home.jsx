@@ -1,7 +1,7 @@
 import React from "react";
-import { Categories, SortPopup, Pizza } from "../components";
+import {Categories, SortPopup, Pizza} from "../components";
 
-const Home = ({ pizzas }) => {
+const Home = ({pizzas}) => {
   const categories = [
     "Мясные",
     "Вегетерианские",
@@ -9,7 +9,11 @@ const Home = ({ pizzas }) => {
     "Острые",
     "Закрытые",
   ];
-  const sortItems = ["Популярности", "Цене", "Алфавиту"];
+  const sortItems = [
+    {name: "Популярности", type: "popular"},
+    {name: "Цене", type: "price"},
+    {name: "Алфавиту", type: "alphabet"},
+  ];
   return (
     <div className="container">
       <div className="content__top">
