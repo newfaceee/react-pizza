@@ -15,13 +15,13 @@ const SortPopup = memo(({ items }) => {
     setVisiblePopup(false);
   };
 
-  React.useEffect(() => {
-    document.body.addEventListener("click", (evt) => {
-      if (!sortRef.current.contains(evt.target)) {
-        setVisiblePopup(false);
-      }
-    });
-  }, []);
+  // React.useEffect(() => {
+  //   document.body.addEventListener("click", (evt) => {
+  //     if (!sortRef.current.contains(evt.target)) {
+  //       setVisiblePopup(false);
+  //     }
+  //   });
+  // }, []);
 
   return (
     <div ref={sortRef} className="sort">
