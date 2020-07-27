@@ -1,19 +1,20 @@
 import axios from "axios";
 
-export const setLoaded = (value) => ({
+const setLoaded = (bool) => ({
   type: "SET_LOADED",
-  payload: value,
+  payload: bool,
 });
-
-export const fetchPizzas = () => (dispatch) => {
-  axios.get("http://localhost:3001/db.json").then(({ data }) => {
-    dispatch(setPizzas(data.pizzas));
-  });
-};
 
 const setPizzas = (items) => ({
   type: "SET_PIZZAS",
   payload: items,
 });
 
-export default setPizzas;
+const fetchPizzas = () => (dispatch) => {
+  dispatch(setLoaded(false));
+  axios.get("http://localhost:3001/db.json").then(({ data }) => {
+    dispatch(setPizzas(data.pizzas));
+  });
+};
+
+export { fetchPizzas, setLoaded, setPizzas };

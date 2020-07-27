@@ -24,12 +24,16 @@ const Home = () => {
 
   const onSelectSortType = useCallback((index) => {
     dispatch(setSortBy(SORT_ITEMS[index].type));
-  });
+  }, []);
 
   return (
     <div className="container">
       <div className="content__top">
-        <Categories onClickItem={onSelectCategory} items={CATEGORIES} />
+        <Categories
+          activeCategory={category}
+          onClickItem={onSelectCategory}
+          items={CATEGORIES}
+        />
         <SortPopup onClickItem={onSelectSortType} items={SORT_ITEMS} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
