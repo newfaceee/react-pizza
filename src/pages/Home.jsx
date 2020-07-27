@@ -13,9 +13,8 @@ const Home = () => {
 
   const { items, isLoaded } = useSelector(({ pizzas }) => pizzas);
   const { category, sortBy } = useSelector(({ filters }) => filters);
-
   useEffect(() => {
-    dispatch(fetchPizzas());
+    dispatch(fetchPizzas(category, sortBy));
   }, [category, sortBy]);
 
   const onSelectCategory = useCallback((index) => {
@@ -23,7 +22,7 @@ const Home = () => {
   }, []);
 
   const onSelectSortType = useCallback((index) => {
-    dispatch(setSortBy(index));
+    dispatch(setSortBy(SORT_ITEMS[index].type));
   }, []);
 
   return (

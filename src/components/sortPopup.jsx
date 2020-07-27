@@ -1,8 +1,12 @@
 import React, { useState, useRef, memo } from "react";
+import { SORT_ITEMS } from "../constants";
 
 const SortPopup = memo(({ items, onClickItem, activeSortType }) => {
   const [visiblePopup, setVisiblePopup] = useState(false);
   const sortRef = useRef(null);
+  const currentSortType = SORT_ITEMS.find((sortType) => {
+    return sortType.type === activeSortType;
+  }).name;
 
   const toggleVisiblePopup = () => {
     setVisiblePopup(!visiblePopup);
@@ -29,7 +33,7 @@ const SortPopup = memo(({ items, onClickItem, activeSortType }) => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={toggleVisiblePopup}>{items[activeSortType].name}</span>
+        <span onClick={toggleVisiblePopup}>{currentSortType}</span>
       </div>
       {visiblePopup && (
         <div className="sort__popup">

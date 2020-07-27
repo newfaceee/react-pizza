@@ -10,11 +10,17 @@ const setPizzas = (items) => ({
   payload: items,
 });
 
-const fetchPizzas = () => (dispatch) => {
+const fetchPizzas = (category, sortBy) => (dispatch) => {
   dispatch(setLoaded(false));
-  axios.get("http://localhost:3001/db.json").then(({ data }) => {
-    dispatch(setPizzas(data.pizzas));
-  });
+  axios
+    .get(
+      `http://localhost:3001/pizzas?${
+        category === null ? "" : `category=${category}&`
+      }_sort=${sortBy}&_order=desc`
+    )
+    .then(({ data }) => {
+      dispatch(setPizzas(data));
+    });
 };
 
 export { fetchPizzas, setLoaded, setPizzas };
