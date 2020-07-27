@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { nanoid } from "nanoid";
 import { setCategory, setSortBy } from "../redux/actions/filters";
 
 import { Categories, SortPopup, Pizza, PizzaLoadingBlock } from "../components";
@@ -10,12 +11,12 @@ import { fetchPizzas } from "../redux/actions/pizzas";
 const Home = () => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchPizzas());
-  }, []);
-
   const { items, isLoaded } = useSelector(({ pizzas }) => pizzas);
   const { category, sortBy } = useSelector(({ filters }) => filters);
+
+  useEffect(() => {
+    dispatch(fetchPizzas());
+  }, [category, sortBy]);
 
   const onSelectCategory = useCallback((index) => {
     dispatch(setCategory(index));
@@ -34,8 +35,12 @@ const Home = () => {
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
         {isLoaded
-          ? items.map((pizza) => <Pizza pizza={pizza} />)
-          : Array(12).fill(<PizzaLoadingBlock />)}
+          ? items.map((pizza) => <Pizza key={nanoid(4)} pizza={pizza} />)
+          : Array(12)
+              .fill("")
+              .map(() => {
+                return <PizzaLoadingBlock key={nanoid(4)} />;
+              })}
       </div>
     </div>
   );
