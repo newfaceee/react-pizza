@@ -1,9 +1,9 @@
+import axios from "axios";
+
 export const fetchPizzas = () => (dispatch) => {
-  fetch("http://localhost:3001/db.json")
-    .then((res) => res.json())
-    .then((db) => {
-      dispatch(setPizzas(db.pizzas));
-    });
+  axios.get("http://localhost:3001/db.json").then(({ data }) => {
+    dispatch(setPizzas(data.pizzas));
+  });
 };
 
 const setPizzas = (items) => ({

@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
+import axios from "axios";
 import "./scss/app.scss";
 
 import { Route } from "react-router-dom";
 import { Header } from "./components";
 import { Home, Cart } from "./pages";
 import { useDispatch } from "react-redux";
-import fetchPizzas from "./redux/actions/pizzas";
+import { fetchPizzas } from "./redux/actions/pizzas";
 
 const App = (props) => {
   const dispatch = useDispatch();
