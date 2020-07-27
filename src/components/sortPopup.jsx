@@ -1,6 +1,6 @@
 import React, { useState, useRef, memo } from "react";
 
-const SortPopup = memo(({ items }) => {
+const SortPopup = memo(({ items, onClickItem }) => {
   const [visiblePopup, setVisiblePopup] = useState(false);
   const [activeItem, setActiveItem] = useState(0);
   const activeSortType = items[activeItem].name;
@@ -10,18 +10,11 @@ const SortPopup = memo(({ items }) => {
     setVisiblePopup(!visiblePopup);
   };
 
-  const sortTypeChangeHandler = (index) => {
+  const onSortTypeChange = (index) => {
     setActiveItem(index);
     setVisiblePopup(false);
+    onClickItem(index);
   };
-
-  // React.useEffect(() => {
-  //   document.body.addEventListener("click", (evt) => {
-  //     if (!sortRef.current.contains(evt.target)) {
-  //       setVisiblePopup(false);
-  //     }
-  //   });
-  // }, []);
 
   return (
     <div ref={sortRef} className="sort">
@@ -49,7 +42,7 @@ const SortPopup = memo(({ items }) => {
                 return (
                   <li
                     onClick={() => {
-                      sortTypeChangeHandler(index);
+                      onSortTypeChange(index);
                     }}
                     key={`${sortItem}_${index}`}
                     className={activeItem === index ? "active" : ""}
