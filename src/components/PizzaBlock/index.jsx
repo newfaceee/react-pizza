@@ -38,20 +38,7 @@ const Pizza = ({ pizza }) => {
 };
 
 Pizza.propTypes = {
-  name: PropTypes.string.isRequired,
-  imageUrl: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  types: PropTypes.arrayOf(PropTypes.number).isRequired,
-  sizes: PropTypes.arrayOf(PropTypes.number).isRequired,
-  isLoading: PropTypes.bool,
-};
-
-Pizza.defaultProps = {
-  name: "test",
-  price: 99,
-  types: [],
-  sizes: [],
-  isLoading: false,
+  pizza: PropTypes.object.isRequired,
 };
 
 export default Pizza;
