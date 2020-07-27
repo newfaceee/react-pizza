@@ -1,8 +1,9 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
-import DoughType from "./DoughType";
-import Size from "./Size";
+import DoughType from "../DoughType";
+import Size from "../Size";
+
 const Pizza = ({ items }) => {
   return (
     <div className="content__items">
@@ -49,6 +50,6 @@ Pizza.propTypes = {
   price: PropTypes.number.isRequired,
   types: PropTypes.arrayOf(PropTypes.number).isRequired,
   sizes: PropTypes.arrayOf(PropTypes.number).isRequired,
-}
+};
 
 export default Pizza;
