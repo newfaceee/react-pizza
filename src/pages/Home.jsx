@@ -13,9 +13,10 @@ const Home = () => {
     dispatch(fetchPizzas());
   }, []);
 
-  const items = useSelector(({ pizzas }) => {
-    return pizzas.items;
-  });
+  const [items, isLoaded] = useSelector(({ pizzas }) => [
+    pizzas.items,
+    pizzas.isLoaded,
+  ]);
 
   const onSelectCategory = useCallback((index) => {
     dispatch(setCategory(index));
@@ -28,7 +29,9 @@ const Home = () => {
         <SortPopup items={SORT_ITEMS} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <Pizza items={items} />
+      <div className="content__items">
+        {isLoaded && items.map((pizza) => <Pizza pizza={pizza} />)}
+      </div>
     </div>
   );
 };
