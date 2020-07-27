@@ -1,5 +1,10 @@
 import axios from "axios";
 
+export const setLoaded = (value) => ({
+  type: "SET_LOADED",
+  payload: value,
+});
+
 export const fetchPizzas = () => (dispatch) => {
   axios.get("http://localhost:3001/db.json").then(({ data }) => {
     dispatch(setPizzas(data.pizzas));
