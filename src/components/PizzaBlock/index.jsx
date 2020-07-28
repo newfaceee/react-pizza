@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import DoughType from '../DoughType';
-import Size from '../Size';
+import DoughType from './DoughType';
+import Size from './Size';
 
-const Pizza = ({ pizza, onAddButtonClick }) => {
+const Pizza = ({ pizza, onAddButtonClick, count }) => {
   const { id, imageUrl, name, types, sizes, price } = pizza;
 
   const [activeSize, setActiveSize] = useState(0);
@@ -64,7 +64,7 @@ const Pizza = ({ pizza, onAddButtonClick }) => {
             />
           </svg>
           <span>Добавить</span>
-          <i>2</i>
+          {count && <i>{count}</i>}
         </div>
       </div>
     </div>
