@@ -5,8 +5,7 @@ import Button from './Button';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
-  const { totalPrice, totalCount, items } = useSelector(({ cart }) => cart);
-  console.log(items);
+  const { totalPrice, totalCount } = useSelector(({ cart }) => cart);
   return (
     <div className="header">
       <div className="container">
