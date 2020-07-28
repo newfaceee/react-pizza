@@ -1,13 +1,13 @@
 import React from 'react';
 import classNames from 'classnames';
 
-const Size = ({ sizes, onSizeClick, activeSize }) => {
-  const allSizes = [26, 30, 40];
+import { SIZES } from '../../constants';
 
+const Size = ({ sizes, onSizeClick, activeSize }) => {
   return (
     <ul>
       {sizes &&
-        allSizes.map((size, index) => {
+        SIZES.map((size, index) => {
           return (
             <li
               key={`${size}_${index}`}

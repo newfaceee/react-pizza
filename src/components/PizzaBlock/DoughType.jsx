@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 
-const DoughType = ({ doughTypes, onDoughTypeClick, activeDoughType }) => {
-  const typeNames = ['тонкое', 'традиционное'];
+import { DOUGH_TYPES } from '../../constants';
 
+const DoughType = ({ doughTypes, onDoughTypeClick, activeDoughType }) => {
   return (
     <ul>
       {doughTypes &&
-        typeNames.map((type, index) => {
+        DOUGH_TYPES.map((type, index) => {
           return (
             <li
               className={classNames({
