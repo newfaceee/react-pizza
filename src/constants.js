@@ -1,9 +1,12 @@
-const CATEGORIES = ["Мясные", "Вегетерианские", "Гриль", "Острые", "Закрытые"];
+const CATEGORIES = ['Мясные', 'Вегетерианские', 'Гриль', 'Острые', 'Закрытые'];
 
 const SORT_ITEMS = [
-  { name: "Популярности", type: "popular" },
-  { name: "Цене", type: "price" },
-  { name: "Алфавиту", type: "name" },
+  { name: 'Популярности', type: 'popular' },
+  { name: 'Цене', type: 'price' },
+  { name: 'Алфавиту', type: 'name' },
 ];
 
-export { CATEGORIES, SORT_ITEMS };
+const DOUGH_TYPES = ['тонкое', 'традиционное'];
+const SIZES = [26, 30, 40];
+
+export { CATEGORIES, SORT_ITEMS, DOUGH_TYPES, SIZES };
