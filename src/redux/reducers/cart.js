@@ -17,13 +17,19 @@ const cart = (state = initialState, action) => {
         totalCount: action.payload,
       };
     case 'ADD_PIZZA_CART':
+      const newItems = {
+        ...state.items,
+        [action.payload.id]: !state.items[action.payload.id]
+          ? [action.payload]
+          : [...state.items[action.payload.id], action.payload],
+      };
       return {
         ...state,
-        totalCount: state.totalCount + 1,
+        totalCount: Object.values(newItems).reduce((acc, curr) => {
+          return curr.length + acc;
+        }, 0),
         totalPrice: state.totalPrice + action.payload.price,
-        items: Object.assign(state.items, {
-          [action.payload.id]: action.payload,
-        }),
+        items: newItems,
       };
     default:
       return state;
