@@ -14,6 +14,8 @@ const Home = () => {
 
   const { items, isLoaded } = useSelector(({ pizzas }) => pizzas);
   const { category, sortBy } = useSelector(({ filters }) => filters);
+  const { items: itemsInCart } = useSelector(({ cart }) => cart);
+
   useEffect(() => {
     dispatch(fetchPizzas(category, sortBy));
   }, [category, sortBy]);
@@ -51,6 +53,7 @@ const Home = () => {
                 onAddButtonClick={onAddPizzaToCart}
                 key={nanoid(4)}
                 pizza={pizza}
+                count={itemsInCart[pizza.id] && itemsInCart[pizza.id].length}
               />
             ))
           : Array(12)
