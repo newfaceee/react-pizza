@@ -1,17 +1,13 @@
-import React, { useState } from "react";
-import classNames from "classnames";
+import React from 'react';
+import classNames from 'classnames';
 
-const Size = ({ sizes }) => {
-  const [activeSize, setActiveSize] = useState(0);
-  const allSizes = [26, 30, 40];
-  const sizeChangeHandler = (index) => {
-    setActiveSize(index);
-  };
+import { SIZES } from '../../constants';
 
+const Size = ({ sizes, onSizeClick, activeSize }) => {
   return (
     <ul>
       {sizes &&
-        allSizes.map((size, index) => {
+        SIZES.map((size, index) => {
           return (
             <li
               key={`${size}_${index}`}
@@ -20,7 +16,7 @@ const Size = ({ sizes }) => {
                 disabled: !sizes.includes(size),
               })}
               onClick={() => {
-                sizeChangeHandler(index);
+                onSizeClick(index);
               }}
             >
               {size} см.

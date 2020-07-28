@@ -1,22 +1,56 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-import DoughType from "../DoughType";
-import Size from "../Size";
+import DoughType from './DoughType';
+import Size from './Size';
 
-const Pizza = ({ pizza }) => {
+const Pizza = ({ pizza, onAddButtonClick, count }) => {
   const { id, imageUrl, name, types, sizes, price } = pizza;
+
+  const [activeSize, setActiveSize] = useState(0);
+  const [activeDoughType, setActiveDoughType] = useState(0);
+
+  const addButtonClickHandler = () => {
+    onAddButtonClick({
+      id,
+      imageUrl,
+      name,
+      price,
+      size: activeSize,
+      doughType: activeDoughType,
+    });
+  };
+
+  const sizeClickHandler = (index) => {
+    setActiveSize(index);
+  };
+
+  const doughTypeClickHandler = (index) => {
+    setActiveDoughType(index);
+  };
+
   return (
     <div key={id} className="pizza-block">
       <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
       <h4 className="pizza-block__title">{name}</h4>
       <div className="pizza-block__selector">
-        <DoughType doughTypes={types} />
-        <Size sizes={sizes} />
+        <DoughType
+          onDoughTypeClick={doughTypeClickHandler}
+          activeDoughType={activeDoughType}
+          doughTypes={types}
+        />
+        <Size
+          onSizeClick={sizeClickHandler}
+          activeSize={activeSize}
+          sizes={sizes}
+        />
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">{`от ${price} ₽`}</div>
-        <div className="button button--outline button--add">
+        <div
+          onClick={addButtonClickHandler}
+          className="button button--outline button--add"
+        >
           <svg
             width="12"
             height="12"
@@ -30,7 +64,7 @@ const Pizza = ({ pizza }) => {
             />
           </svg>
           <span>Добавить</span>
-          <i>2</i>
+          {count && <i>{count}</i>}
         </div>
       </div>
     </div>

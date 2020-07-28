@@ -1,16 +1,13 @@
-import React, {useState} from "react";
+import React from 'react';
 import classNames from 'classnames';
 
-const DoughType = ({doughTypes}) => {
-  const [activeDoughType, setActiveDoughType] = useState(doughTypes[0]);
-  const typeNames = ['тонкое', 'традиционное'];
-  const doughTypeChangeHandler = (index) => {
-    setActiveDoughType(index);
-  };
+import { DOUGH_TYPES } from '../../constants';
+
+const DoughType = ({ doughTypes, onDoughTypeClick, activeDoughType }) => {
   return (
     <ul>
       {doughTypes &&
-        typeNames.map((type, index) => {
+        DOUGH_TYPES.map((type, index) => {
           return (
             <li
               className={classNames({
@@ -18,7 +15,7 @@ const DoughType = ({doughTypes}) => {
                 disabled: !doughTypes.includes(index),
               })}
               onClick={() => {
-                doughTypeChangeHandler(index);
+                onDoughTypeClick(index);
               }}
               key={`${type}_${index}`}
             >
