@@ -1,12 +1,13 @@
-import React, { useCallback, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { nanoid } from "nanoid";
-import { setCategory, setSortBy } from "../redux/actions/filters";
+import React, { useCallback, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { nanoid } from 'nanoid';
+import { setCategory, setSortBy } from '../redux/actions/filters';
+import { addPizzaToCart } from '../redux/actions/cart';
 
-import { Categories, SortPopup, Pizza, PizzaLoadingBlock } from "../components";
+import { Categories, SortPopup, Pizza, PizzaLoadingBlock } from '../components';
 
-import { CATEGORIES, SORT_ITEMS } from "../constants";
-import { fetchPizzas } from "../redux/actions/pizzas";
+import { CATEGORIES, SORT_ITEMS } from '../constants';
+import { fetchPizzas } from '../redux/actions/pizzas';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,9 @@ const Home = () => {
   const onSelectSortType = useCallback((index) => {
     dispatch(setSortBy(SORT_ITEMS[index].type));
   }, []);
+  const onAddPizzaToCart = useCallback((pizza) => {
+    dispatch(addPizzaToCart(pizza));
+  });
 
   return (
     <div className="container">
@@ -42,9 +46,15 @@ const Home = () => {
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
         {isLoaded
-          ? items.map((pizza) => <Pizza key={nanoid(4)} pizza={pizza} />)
+          ? items.map((pizza) => (
+              <Pizza
+                onAddButtonClick={onAddPizzaToCart}
+                key={nanoid(4)}
+                pizza={pizza}
+              />
+            ))
           : Array(12)
-              .fill("")
+              .fill('')
               .map(() => {
                 return <PizzaLoadingBlock key={nanoid(4)} />;
               })}
