@@ -1,11 +1,11 @@
-import React, { useState, memo } from "react";
+import React, { memo } from 'react';
 
 const Categories = memo(({ items, onClickItem, activeCategory }) => {
   return (
     <div className="categories">
       <ul>
         <li
-          className={activeCategory === null ? "active" : ""}
+          className={activeCategory === null ? 'active' : ''}
           onClick={() => onClickItem(null)}
         >
           Все
@@ -14,7 +14,7 @@ const Categories = memo(({ items, onClickItem, activeCategory }) => {
           items.map((item, index) => {
             return (
               <li
-                className={activeCategory === index ? "active" : ""}
+                className={activeCategory === index ? 'active' : ''}
                 onClick={() => {
                   onClickItem(index);
                 }}
