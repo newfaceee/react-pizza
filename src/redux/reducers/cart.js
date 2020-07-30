@@ -4,30 +4,51 @@ const initialState = {
   totalCount: 0,
 };
 
+const updateItems = (newItems, oldItems) => {
+  const { id } = newItems;
+  if (oldItems[id]) {
+  }
+};
+
 const cart = (state = initialState, action) => {
   switch (action.type) {
-    case 'SET_TOTAL_PRICE':
-      return {
-        ...state,
-        totalPrice: action.payload,
-      };
-    case 'SET_TOTAL_COUNT':
-      return {
-        ...state,
-        totalCount: action.payload,
-      };
     case 'ADD_PIZZA_CART':
-      const newItems = {
-        ...state.items,
-        [action.payload.id]: !state.items[action.payload.id]
-          ? [action.payload]
-          : [...state.items[action.payload.id], action.payload],
-      };
+      let newItems = {};
+      if (state.items[action.payload.id]) {
+        const index = state.items[action.payload.id].findIndex((pizza) => {
+          return (
+            pizza.type === action.payload.type &&
+            pizza.size === action.payload.size
+          );
+        });
+
+        if (index >= 0) {
+          state.items[action.payload.id][index].count += 1;
+          newItems = state.items;
+        } else {
+          const newPizza = Object.assign({}, action.payload, {
+            count: 1,
+          });
+          newItems = {
+            ...state.items,
+            [action.payload.id]: [...state.items[action.payload.id], newPizza],
+          };
+        }
+      } else {
+        const newPizza = Object.assign({}, action.payload, {
+          count: 1,
+        });
+        newItems = {
+          ...state.items,
+          [action.payload.id]: [newPizza],
+        };
+      }
+      const totalCount = Object.values(newItems)
+        .flat()
+        .reduce((acc, curr) => acc + curr.count, 0);
       return {
         ...state,
-        totalCount: Object.values(newItems).reduce((acc, curr) => {
-          return curr.length + acc;
-        }, 0),
+        totalCount,
         totalPrice: state.totalPrice + action.payload.price,
         items: newItems,
       };
