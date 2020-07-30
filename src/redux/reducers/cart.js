@@ -14,35 +14,30 @@ const cart = (state = initialState, action) => {
   switch (action.type) {
     case 'ADD_PIZZA_CART':
       let newItems = {};
-      if (state.items[action.payload.id]) {
-        const index = state.items[action.payload.id].findIndex((pizza) => {
+
+      const index =
+        state.items[action.payload.id] &&
+        state.items[action.payload.id].findIndex((pizza) => {
           return (
             pizza.type === action.payload.type &&
             pizza.size === action.payload.size
           );
         });
-
-        if (index >= 0) {
-          state.items[action.payload.id][index].count += 1;
-          newItems = state.items;
-        } else {
-          const newPizza = Object.assign({}, action.payload, {
-            count: 1,
-          });
-          newItems = {
-            ...state.items,
-            [action.payload.id]: [...state.items[action.payload.id], newPizza],
-          };
-        }
+      if (index !== 'undefined' && index >= 0) {
+        state.items[action.payload.id][index].count += 1;
+        newItems = state.items;
       } else {
         const newPizza = Object.assign({}, action.payload, {
           count: 1,
         });
         newItems = {
           ...state.items,
-          [action.payload.id]: [newPizza],
+          [action.payload.id]: state.items[action.payload.id]
+            ? [...state.items[action.payload.id], newPizza]
+            : [newPizza],
         };
       }
+
       const totalCount = Object.values(newItems)
         .flat()
         .reduce((acc, curr) => acc + curr.count, 0);
