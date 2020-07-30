@@ -48,14 +48,22 @@ const Home = () => {
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
         {isLoaded
-          ? items.map((pizza) => (
-              <Pizza
-                onAddButtonClick={onAddPizzaToCart}
-                key={nanoid(4)}
-                pizza={pizza}
-                count={itemsInCart[pizza.id] && itemsInCart[pizza.id].length}
-              />
-            ))
+          ? items.map((pizza) => {
+              const count =
+                itemsInCart[pizza.id] &&
+                itemsInCart[pizza.id].reduce(
+                  (acc, currPizza) => acc + currPizza.count,
+                  0
+                );
+              return (
+                <Pizza
+                  onAddButtonClick={onAddPizzaToCart}
+                  key={nanoid(4)}
+                  pizza={pizza}
+                  count={count}
+                />
+              );
+            })
           : Array(12)
               .fill('')
               .map(() => {
