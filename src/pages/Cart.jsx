@@ -1,10 +1,26 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { DOUGH_TYPES, SIZES } from '../constants';
+import {
+  addPizzaInCart,
+  subPizzaInCart,
+  deletePizzaInCart,
+} from '../redux/actions/cart';
 
 const Cart = () => {
+  const dispatch = useDispatch();
   const { totalCount, totalPrice, items } = useSelector(({ cart }) => cart);
+
+  const handlePlusButtonClick = (id, size, doughtType) => {
+    dispatch(addPizzaInCart(id, size, doughtType));
+  };
+  const handleMinusButtonClick = (id, size, doughType) => {
+    dispatch(subPizzaInCart(id, size, doughType));
+  };
+  const handleDeleteButtonClick = (id, size, doughType) => {
+    dispatch(deletePizzaInCart(id, size, doughType));
+  };
   return (
     <div className="content">
       <div className="container container--cart">
@@ -84,26 +100,39 @@ const Cart = () => {
             </div>
           </div>
           <div className="content__items">
-            {Object.values(items).map((pizza, index) => {
-              console.log(pizza);
+            {items.map((pizza, index) => {
+              const {
+                count,
+                imageUrl,
+                name,
+                size,
+                doughType,
+                price,
+                id,
+              } = pizza;
+              const totalPrice = price * count;
               return (
                 <div key={index} className="cart__item">
                   <div className="cart__item-img">
                     <img
                       className="pizza-block__image"
-                      src={pizza[0].imageUrl}
+                      src={imageUrl}
                       alt="Pizza"
                     />
                   </div>
                   <div className="cart__item-info">
-                    <h3>{pizza[0].name}</h3>
+                    <h3>{name}</h3>
                     <p>
-                      {DOUGH_TYPES[pizza[0].doughType]}, {SIZES[pizza[0].size]}{' '}
-                      см.
+                      {DOUGH_TYPES[doughType]}, {SIZES[size]} см.
                     </p>
                   </div>
                   <div className="cart__item-count">
-                    <div className="button button--outline button--circle cart__item-count-minus">
+                    <div
+                      onClick={() => {
+                        handleMinusButtonClick(id, size, doughType);
+                      }}
+                      className="button button--outline button--circle cart__item-count-minus"
+                    >
                       <svg
                         width="10"
                         height="10"
@@ -121,8 +150,13 @@ const Cart = () => {
                         />
                       </svg>
                     </div>
-                    <b>{pizza.length}</b>
-                    <div className="button button--outline button--circle cart__item-count-plus">
+                    <b>{count}</b>
+                    <div
+                      onClick={() => {
+                        handlePlusButtonClick(id, size, doughType);
+                      }}
+                      className="button button--outline button--circle cart__item-count-plus"
+                    >
                       <svg
                         width="10"
                         height="10"
@@ -142,9 +176,14 @@ const Cart = () => {
                     </div>
                   </div>
                   <div className="cart__item-price">
-                    <b>770 ₽</b>
+                    <b>{totalPrice} ₽</b>
                   </div>
-                  <div className="cart__item-remove">
+                  <div
+                    onClick={() => {
+                      handleDeleteButtonClick(id, size, doughType);
+                    }}
+                    className="cart__item-remove"
+                  >
                     <div className="button button--outline button--circle">
                       <svg
                         width="10"
