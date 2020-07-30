@@ -64,7 +64,7 @@ const Pizza = ({ pizza, onAddButtonClick, count }) => {
             />
           </svg>
           <span>Добавить</span>
-          {count && <i>{count}</i>}
+          {count > 0 && <i>{count}</i>}
         </div>
       </div>
     </div>
