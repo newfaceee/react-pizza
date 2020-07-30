@@ -49,18 +49,19 @@ const Home = () => {
       <div className="content__items">
         {isLoaded
           ? items.map((pizza) => {
-              const count =
-                itemsInCart[pizza.id] &&
-                itemsInCart[pizza.id].reduce(
-                  (acc, currPizza) => acc + currPizza.count,
-                  0
-                );
+              const currentItemsInCart = itemsInCart.filter(
+                (pizzaObj) => pizzaObj.id === pizza.id
+              );
+              const itemsInCartCount = currentItemsInCart.reduce(
+                (acc, currPizza) => acc + currPizza.count,
+                0
+              );
               return (
                 <Pizza
                   onAddButtonClick={onAddPizzaToCart}
                   key={nanoid(4)}
                   pizza={pizza}
-                  count={count}
+                  count={itemsInCartCount}
                 />
               );
             })
