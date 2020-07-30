@@ -29,3 +29,7 @@ export const deletePizzaInCart = (id, size, doughType) => ({
     doughType,
   },
 });
+
+export const deleteAllPizzasInCart = () => ({
+  type: 'DELETE_ALL_PIZZAS_IN_CART',
+});

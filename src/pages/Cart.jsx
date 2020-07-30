@@ -6,6 +6,7 @@ import {
   addPizzaInCart,
   subPizzaInCart,
   deletePizzaInCart,
+  deleteAllPizzasInCart,
 } from '../redux/actions/cart';
 
 const Cart = () => {
@@ -20,6 +21,9 @@ const Cart = () => {
   };
   const handleDeleteButtonClick = (id, size, doughType) => {
     dispatch(deletePizzaInCart(id, size, doughType));
+  };
+  const handleDeleteAllButtonClick = () => {
+    dispatch(deleteAllPizzasInCart());
   };
   return (
     <div className="content">
@@ -58,7 +62,7 @@ const Cart = () => {
               </svg>
               Корзина
             </h2>
-            <div className="cart__clear">
+            <div onClick={handleDeleteAllButtonClick} className="cart__clear">
               <svg
                 width="20"
                 height="20"

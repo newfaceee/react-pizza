@@ -18,6 +18,18 @@ const updateState = (newItems) => {
 };
 
 const cart = (state = initialState, action) => {
+  if (action.type === 'DELETE_ALL_PIZZAS_IN_CART') {
+    const newItems = [];
+    const totalCount = 0;
+    const totalPrice = 0;
+    return {
+      ...state,
+      items: newItems,
+      totalCount,
+      totalPrice,
+    };
+  }
+
   let newItems = [...state.items];
   const index = newItems.findIndex((pizza) => {
     return (
@@ -75,7 +87,6 @@ const cart = (state = initialState, action) => {
         totalPrice,
       };
     }
-
     default:
       return state;
   }
